@@ -40,41 +40,13 @@ The default behavior is:
 @objc(ELLogCrashlyticsDestination)
 public class LogCrashlyticsDestination: ELLog.LogDestinationBase {
 
-    public override init(level argLevel: ELLog.LogLevel) {
-        super.init(level: argLevel)
-        showCaller = true
-        showLogLevel = true
-        showTimestamp = true
+	public override init(level argLevel: ELLog.LogLevel, formatter: ELLog.LogFormatter = ELLog.VerboseFormatter()) {
+		super.init(level: argLevel, formatter: formatter)
     }
 
     public override func log(detail: ELLog.LogDetail) {
-        var output: String = ""
-
-        if showLogLevel {
-            if let level = detail.level {
-                output += "[\(LogLevel(rawValue: level).description)] "
-            }
-        }
-
-        if showTimestamp {
-            if let date = detail.date {
-                output += "[\(dateFormatter.stringFromDate(date))] "
-            }
-        }
-
-        if showCaller {
-            if let filename = detail.filename, line = detail.line, function = detail.function {
-                output += "(\(function), \((filename as NSString).lastPathComponent):\(line)) "
-            }
-        }
-
-        output += ": "
-
-        if let message = detail.message {
-            output += message
-        }
-
-        CLSLogv("%@", getVaList([output]))
+		let message = formatter.format(detail)
+		CLSLogv("%@", getVaList([message]))
     }
 }
 

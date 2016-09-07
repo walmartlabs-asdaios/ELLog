@@ -102,7 +102,7 @@ public class Logger: NSObject {
     
     public override init() {
         super.init()
-        let console = LogConsoleDestination(level: [.Debug, .Error])
+        let console = LogConsoleDestination(level: [.Debug, .Error], formatter: SimpleFormatter())
         addDestination(console)
     }
 

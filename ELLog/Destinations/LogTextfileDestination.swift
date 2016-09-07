@@ -38,11 +38,7 @@ public class LogTextfileDestination: LogDestinationBase {
             assertionFailure("LogTestfileDestionation was unable to open \(path) for writing.")
         }
 
-        super.init(level: .Debug)
-        
-        showCaller = false
-        showLogLevel = true
-        showTimestamp = true
+		super.init(level: .Debug, formatter: TimestampFormatter())
     }
 
     deinit {
@@ -55,7 +51,7 @@ public class LogTextfileDestination: LogDestinationBase {
             return
         }
         
-        outputStream?.write(formatted(detail))
+        outputStream?.write(formatter.format(detail))
     }
 }
 

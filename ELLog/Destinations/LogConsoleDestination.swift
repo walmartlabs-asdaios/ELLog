@@ -20,25 +20,12 @@ The default behavior is:
 */
 @objc(ELLogConsoleDestination)
 public class LogConsoleDestination: LogDestinationBase {
-
-    public override init(level: LogLevel) {
-        super.init(level: level)
-        showCaller = false
-        showLogLevel = true
-        showTimestamp = false
-    }
-    
-    public convenience init() {
-        self.init(level: .Debug)
-    }
-    
     public override func log(detail: LogDetail) {
-        let logString = formatted(detail)
+        let logString = formatter.format(detail)
         // You must pass NSLog a format string and then pass the Swift string as a vaArg
         // or the code will crash when it tries to format %f in the Swift string
         NSLog("%@", logString)
     }
-    
 }
 
 

@@ -28,30 +28,10 @@ public protocol LogDestinationProtocol: class {
     The levels that this destination actually records.  See LogLevel.
     */
     var level: UInt { get set }
-}
 
-@objc(ELLogDestinationFormattible)
-public protocol LogDestinationFormattible: class {
-    /// Specifies whether this destination should show the caller information.
-    var showCaller: Bool { get }
-    
-    /// Specifies whether this destination should show the log level.
-    var showLogLevel: Bool { get set }
-    
-    /// Specifies whether this destination should show the timestamp.
-    var showTimestamp: Bool { get set }
-    
-    /// The dateformatter that will be used to format the timestamp.
-    var dateFormatter: NSDateFormatter { get }
-    
-    /**
-     Converts a `LogDetail` into a formatted string based on the current properties.
-     This is what you should output into the destination verbatim.
-     
-     - parameter detail: The `LogDetail` that to be formatted for the destination.
-     - returns: The formatted string.
-     */
-    func formatted(detail: LogDetail) -> String
+	/**
+	The formatter used to convert log detail to a string. The default is DefaultFormatter */
+	var formatter: LogFormatter { get set }
 }
 
 /// A struct describing a log message in detail.
@@ -83,64 +63,30 @@ Provides a default identifier (a GUID), a default level of .Debug, and a date fo
 use with output timestamps.
 */
 @objc(ELLogDestinationBase)
-public class LogDestinationBase: NSObject, LogDestinationProtocol, LogDestinationFormattible {
-    
-    private static let DateFormat = "yyyy-MM-dd HH:mm:ss.SSS"
-    
-    public init(level: LogLevel) {
+public class LogDestinationBase: NSObject, LogDestinationProtocol {
+
+	public init(level: LogLevel, formatter: LogFormatter) {
         self.level = level.rawValue
-        showCaller = false
-        showLogLevel = false
-        showTimestamp = false
-        dateFormatter = NSThread.dateFormatter_ELLog(LogDestinationBase.DateFormat)
+		self.formatter = formatter
     }
 
-    public override convenience init() {
-        self.init(level: LogLevel.Debug)
-    }
+	public init(formatter: LogFormatter) {
+		self.level = LogLevel.Debug.rawValue
+		self.formatter = formatter
+	}
+
+	public override convenience init() {
+		self.init(level: .Debug, formatter: SimpleFormatter())
+	}
 
     // MARK: LogDestinationProtocol
     public var identifier: String = NSUUID().UUIDString
     public var level: UInt
+	public var formatter: LogFormatter
     
     /// Subclasses must override
     public func log(detail: LogDetail) {
-        assert(false, "This method must be overriden by the subclass.")
+        assertionFailure("This method must be overriden by the subclass.")
     }
 
-    // MARK: LogDestinationFormattible
-    public var showCaller: Bool
-    public var showLogLevel: Bool
-    public var showTimestamp: Bool
-    public var dateFormatter: NSDateFormatter
-    
-    public func formatted(detail: LogDetail) -> String {
-        var logString: String = ""
-        
-        if showLogLevel {
-            if let level = detail.level {
-                logString += "[\(LogLevel(rawValue: level).description)] "
-            }
-        }
-        
-        if showTimestamp {
-            if let date = detail.date {
-                logString += "[\(dateFormatter.stringFromDate(date))] "
-            }
-        }
-        
-        if showCaller {
-            if let filename = detail.filename, line = detail.line, function = detail.function {
-                logString += "(\(function), \((filename as NSString).lastPathComponent):\(line)) "
-            }
-        }
-        
-        logString += ": "
-        
-        if let message = detail.message {
-            logString += message
-        }
-        
-        return logString
-    }
 }
