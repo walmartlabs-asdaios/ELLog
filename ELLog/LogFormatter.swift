@@ -9,7 +9,7 @@
 import Foundation
 
 public struct Format {
-	static let Date = "yyyy-MM-dd HH:mm:ss.SSS"
+	public static let Date = "yyyy-MM-dd HH:mm:ss.SSS"
 }
 
 @objc public protocol LogFormatter {
