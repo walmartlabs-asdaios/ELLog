@@ -14,7 +14,7 @@ minimize dependencies. It is being renamed so that it can be used as source in p
 frameworks, e.g. command line apps.
 */
 
-extension NSThread {
+public extension NSThread {
 
     static private let formatterCacheKey = "ELLog.Console.dateFormatter_ELLog"
 
