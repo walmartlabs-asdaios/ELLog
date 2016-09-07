@@ -99,25 +99,29 @@ public class Logger: NSObject {
         }
     }
     private var _enabled = true
+
+	/**
+	The formatter used to convert log detail to a string. The default is SimpleFormatter.
+	*/
+	var formatter: LogFormatter = SimpleFormatter()
+
     
     public override init() {
         super.init()
-        let console = LogConsoleDestination(level: [.Debug, .Error], formatter: SimpleFormatter())
+        let console = LogConsoleDestination(level: [.Debug, .Error])
         addDestination(console)
     }
+
+	public convenience init(formatter: LogFormatter) {
+		self.init()
+		self.formatter = formatter
+	}
 
     /**
     Dispatches the provided log information to the logging destination.
     */
     public func log(level: LogLevel, message: String, function: String = #function, filename: String = #file, line: UInt = #line) {
-        let detail = LogDetail()
-        detail.date = NSDate()
-        detail.message = message
-        detail.level = level.rawValue
-        detail.function = function
-        detail.filename = filename
-        detail.line = line
-
+        let detail = LogDetail(date: NSDate(), message: message, level: level, function: function, filename: filename, line: line)
         log(detail)
     }
 
@@ -129,7 +133,7 @@ public class Logger: NSObject {
     - parameter destination: The destination to add.
     - returns: the identifier of the destination.  Useful for later lookup.
     */
-    public func addDestination(destination: LogDestinationProtocol) -> String {
+    public func addDestination(destination: LogDestination) -> String {
         destinations[destination.identifier] = destination
         return destination.identifier
     }
@@ -151,7 +155,7 @@ public class Logger: NSObject {
     /**
     Lookup an existing destination by its identifier.
     */
-    public func destination(identifier: String) -> LogDestinationProtocol? {
+    public func destination(identifier: String) -> LogDestination? {
         return destinations[identifier]
     }
     
@@ -159,15 +163,8 @@ public class Logger: NSObject {
     Don't call this.  This is purely for interacting with the objective-c interface to this class.
     */
     public func _objcLog(level: UInt, function: String, filename: String, line: UInt, message: String) {
-        let detail = LogDetail()
-        detail.date = NSDate()
-        detail.message = message
-        detail.level = level
-        detail.function = function
-        detail.filename = filename
-        detail.line = line
-
-        log(detail)
+		let detail = LogDetail(date: NSDate(), message: message, level: LogLevel(rawValue: level), function: function, filename: filename, line: line)
+		log(detail)
     }
 
     private func log(detail: LogDetail) {
@@ -178,28 +175,26 @@ public class Logger: NSObject {
         
         // cycle through the destinations and start writing.
         for destination in destinations.values {
-            if let rawLevel = detail.level {
-                let level: LogLevel = LogLevel(rawValue: rawLevel)
-                let destinationLevel: LogLevel = LogLevel(rawValue: destination.level)
+			let level: LogLevel = detail.level
+			let destinationLevel: LogLevel = LogLevel(rawValue: destination.level)
 
-                if level.contains(.Error) && destinationLevel.contains(.Error) {
-                    destination.log(detail)
-                } else if level.contains(.Debug) && destinationLevel.contains(.Debug) {
-                    destination.log(detail)
-                } else if level.contains(.Info) && destinationLevel.contains(.Info) {
-                    destination.log(detail)
-                } else if level.contains(.Verbose) && destinationLevel.contains(.Verbose) {
-                    destination.log(detail)
-                }
-            }
+			if level.contains(.Error) && destinationLevel.contains(.Error) {
+				destination.log(formatter.format(detail))
+			} else if level.contains(.Debug) && destinationLevel.contains(.Debug) {
+				destination.log(formatter.format(detail))
+			} else if level.contains(.Info) && destinationLevel.contains(.Info) {
+				destination.log(formatter.format(detail))
+			} else if level.contains(.Verbose) && destinationLevel.contains(.Verbose) {
+				destination.log(formatter.format(detail))
+			}
         }
     }
 
-    internal func destinationsForTesting() -> [String: LogDestinationProtocol] {
+    internal func destinationsForTesting() -> [String: LogDestination] {
         return destinations
     }
     
-    private var destinations = [String: LogDestinationProtocol]()
+    private var destinations = [String: LogDestination]()
 }
 
 

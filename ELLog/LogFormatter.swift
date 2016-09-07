@@ -35,23 +35,20 @@ public class ConfigurableFormatter: NSObject, LogFormatter {
 	public func format(detail: LogDetail) -> String {
 		var logString: String = ""
 
-			if showLevel == true, let level = detail.level {
-				logString += "[\(LogLevel(rawValue: level).description)] "
-			}
+		if showLevel == true {
+			logString += "[\(detail.level.description)] "
+		}
 
-			if showTimestamp == true, let date = detail.date {
-				logString += "[\(dateFormatter.stringFromDate(date))] "
-			}
+		if showTimestamp == true {
+			logString += "[\(dateFormatter.stringFromDate(detail.date))] "
+		}
 
-			if showCaller == true, let filename = detail.filename, line = detail.line, function = detail.function {
-				logString += "(\(function), \((filename as NSString).lastPathComponent):\(line)) "
-			}
+		if showCaller == true {
+			logString += "(\(detail.function), \((detail.filename as NSString).lastPathComponent):\(detail.line)) "
+		}
 
 		logString += ": "
-
-		if let message = detail.message {
-			logString += message
-		}
+		logString += detail.message
 
 		return logString
 	}

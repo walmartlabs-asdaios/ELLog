@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		20C3E9201C64099A002BC2DA /* LogUnitTestDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C3E91F1C64099A002BC2DA /* LogUnitTestDestination.swift */; };
-		2238B6B81C9B6D1F00C3E813 /* LogConsoleDestinationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2238B6B71C9B6D1F00C3E813 /* LogConsoleDestinationTests.swift */; };
+		A43D08EB1D80AFB000EEF91B /* LogDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = A43D08EA1D80AFB000EEF91B /* LogDetail.swift */; };
 		A4CD0DF81D80466D00A3032C /* LogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CD0DF71D80466D00A3032C /* LogFormatter.swift */; };
 		A4CD0DFA1D80529D00A3032C /* LogFormatterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4CD0DF91D80529D00A3032C /* LogFormatterTests.swift */; };
 		A4EB1C8B1D80686C0055E282 /* NSThread+ELLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4EB1C8A1D80686C0055E282 /* NSThread+ELLog.swift */; };
@@ -18,7 +18,7 @@
 		CA2410541AF966F600AA4410 /* Logger-Objc.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB30F011AB6766C0021C342 /* Logger-Objc.m */; };
 		CA2410551AF966F600AA4410 /* LogConsoleDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB30EFE1AB663C70021C342 /* LogConsoleDestination.swift */; };
 		CA2410561AF966F600AA4410 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA8D47D71AAE702C0028B74D /* Log.swift */; };
-		CA2410581AF966F600AA4410 /* LogDestinationBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACE89211AC1CC78000FE30E /* LogDestinationBase.swift */; };
+		CA2410581AF966F600AA4410 /* LogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACE89211AC1CC78000FE30E /* LogDestination.swift */; };
 		CA24105C1AF966F600AA4410 /* Logger-Objc.h in Headers */ = {isa = PBXBuildFile; fileRef = CAB30F001AB6766C0021C342 /* Logger-Objc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CA24105D1AF966F600AA4410 /* ELLog.h in Headers */ = {isa = PBXBuildFile; fileRef = CA8D47C01AAE6FF50028B74D /* ELLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CA8332C21AAEC739003C9058 /* ELLogObjcTests.m in Sources */ = {isa = PBXBuildFile; fileRef = CA8332C11AAEC739003C9058 /* ELLogObjcTests.m */; };
@@ -30,7 +30,7 @@
 		CAB30EFF1AB663C70021C342 /* LogConsoleDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB30EFE1AB663C70021C342 /* LogConsoleDestination.swift */; };
 		CAB30F021AB6766C0021C342 /* Logger-Objc.h in Headers */ = {isa = PBXBuildFile; fileRef = CAB30F001AB6766C0021C342 /* Logger-Objc.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CAB30F031AB6766C0021C342 /* Logger-Objc.m in Sources */ = {isa = PBXBuildFile; fileRef = CAB30F011AB6766C0021C342 /* Logger-Objc.m */; };
-		CACE89221AC1CC78000FE30E /* LogDestinationBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACE89211AC1CC78000FE30E /* LogDestinationBase.swift */; };
+		CACE89221AC1CC78000FE30E /* LogDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = CACE89211AC1CC78000FE30E /* LogDestination.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,7 +46,7 @@
 /* Begin PBXFileReference section */
 		20A819031C5AE73C00FC8480 /* LogCrashlyticsDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCrashlyticsDestination.swift; sourceTree = "<group>"; };
 		20C3E91F1C64099A002BC2DA /* LogUnitTestDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogUnitTestDestination.swift; sourceTree = "<group>"; };
-		2238B6B71C9B6D1F00C3E813 /* LogConsoleDestinationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogConsoleDestinationTests.swift; sourceTree = "<group>"; };
+		A43D08EA1D80AFB000EEF91B /* LogDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDetail.swift; sourceTree = "<group>"; };
 		A4CD0DF71D80466D00A3032C /* LogFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFormatter.swift; sourceTree = "<group>"; };
 		A4CD0DF91D80529D00A3032C /* LogFormatterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogFormatterTests.swift; sourceTree = "<group>"; };
 		A4EB1C8A1D80686C0055E282 /* NSThread+ELLog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSThread+ELLog.swift"; sourceTree = "<group>"; };
@@ -65,7 +65,7 @@
 		CAB30EFE1AB663C70021C342 /* LogConsoleDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogConsoleDestination.swift; sourceTree = "<group>"; };
 		CAB30F001AB6766C0021C342 /* Logger-Objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Logger-Objc.h"; sourceTree = "<group>"; };
 		CAB30F011AB6766C0021C342 /* Logger-Objc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Logger-Objc.m"; sourceTree = "<group>"; };
-		CACE89211AC1CC78000FE30E /* LogDestinationBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDestinationBase.swift; sourceTree = "<group>"; };
+		CACE89211AC1CC78000FE30E /* LogDestination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogDestination.swift; sourceTree = "<group>"; };
 		CACE89241AC1D432000FE30E /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		CACE89251AC1D432000FE30E /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,10 +139,11 @@
 				CA8D47C01AAE6FF50028B74D /* ELLog.h */,
 				CA8D47D71AAE702C0028B74D /* Log.swift */,
 				CAB30EF81AB660F00021C342 /* Logger.swift */,
-				A4CD0DF71D80466D00A3032C /* LogFormatter.swift */,
 				CAB30F001AB6766C0021C342 /* Logger-Objc.h */,
 				CAB30F011AB6766C0021C342 /* Logger-Objc.m */,
-				CACE89211AC1CC78000FE30E /* LogDestinationBase.swift */,
+				A4CD0DF71D80466D00A3032C /* LogFormatter.swift */,
+				A43D08EA1D80AFB000EEF91B /* LogDetail.swift */,
+				CACE89211AC1CC78000FE30E /* LogDestination.swift */,
 				CA13BBD21AB894C500165813 /* Extensions */,
 				CAB30EFB1AB6634B0021C342 /* Destinations */,
 				CA8D47BE1AAE6FF50028B74D /* Supporting Files */,
@@ -166,7 +167,6 @@
 				CA8332C01AAEC738003C9058 /* ELLogTests-Bridging-Header.h */,
 				CA8332C11AAEC739003C9058 /* ELLogObjcTests.m */,
 				CA8D47CB1AAE6FF50028B74D /* Supporting Files */,
-				2238B6B71C9B6D1F00C3E813 /* LogConsoleDestinationTests.swift */,
 				A4CD0DF91D80529D00A3032C /* LogFormatterTests.swift */,
 			);
 			path = ELLogTests;
@@ -339,7 +339,7 @@
 				CA2410541AF966F600AA4410 /* Logger-Objc.m in Sources */,
 				CA2410551AF966F600AA4410 /* LogConsoleDestination.swift in Sources */,
 				CA2410561AF966F600AA4410 /* Log.swift in Sources */,
-				CA2410581AF966F600AA4410 /* LogDestinationBase.swift in Sources */,
+				CA2410581AF966F600AA4410 /* LogDestination.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,7 +354,8 @@
 				CAB30EFF1AB663C70021C342 /* LogConsoleDestination.swift in Sources */,
 				CA8D47D81AAE702C0028B74D /* Log.swift in Sources */,
 				A4EB1C8B1D80686C0055E282 /* NSThread+ELLog.swift in Sources */,
-				CACE89221AC1CC78000FE30E /* LogDestinationBase.swift in Sources */,
+				CACE89221AC1CC78000FE30E /* LogDestination.swift in Sources */,
+				A43D08EB1D80AFB000EEF91B /* LogDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,7 +365,6 @@
 			files = (
 				CA8332C21AAEC739003C9058 /* ELLogObjcTests.m in Sources */,
 				20C3E9201C64099A002BC2DA /* LogUnitTestDestination.swift in Sources */,
-				2238B6B81C9B6D1F00C3E813 /* LogConsoleDestinationTests.swift in Sources */,
 				CA8D47CE1AAE6FF50028B74D /* ELLogTests.swift in Sources */,
 				A4CD0DFA1D80529D00A3032C /* LogFormatterTests.swift in Sources */,
 			);

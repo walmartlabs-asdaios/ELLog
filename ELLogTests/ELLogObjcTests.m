@@ -58,8 +58,7 @@
                  line:__LINE__
                format:testMessage];
 
-    // Cannot test 'level' because optional scalars are no longer exported to Obj-C
-    XCTAssertEqualObjects(unitTestDestination.lastLogDetail.message, testMessage);
+	XCTAssertTrue([unitTestDestination.lastMessage hasSuffix:testMessage]);
 }
 
 - (void) testInstance {

@@ -20,11 +20,10 @@ The default behavior is:
 */
 @objc(ELLogConsoleDestination)
 public class LogConsoleDestination: LogDestinationBase {
-    public override func log(detail: LogDetail) {
-        let logString = formatter.format(detail)
+    public override func log(message: String) {
         // You must pass NSLog a format string and then pass the Swift string as a vaArg
         // or the code will crash when it tries to format %f in the Swift string
-        NSLog("%@", logString)
+        NSLog("%@", message)
     }
 }
 

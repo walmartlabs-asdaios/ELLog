@@ -38,20 +38,20 @@ public class LogTextfileDestination: LogDestinationBase {
             assertionFailure("LogTestfileDestionation was unable to open \(path) for writing.")
         }
 
-		super.init(level: .Debug, formatter: TimestampFormatter())
+		super.init(level: .Debug)
     }
 
     deinit {
         outputStream?.close()
     }
 
-    public override func log(detail: LogDetail) {
+    public override func log(message: String) {
 
         if outputStream == nil {
             return
         }
         
-        outputStream?.write(formatter.format(detail))
+        outputStream?.write(message)
     }
 }
 

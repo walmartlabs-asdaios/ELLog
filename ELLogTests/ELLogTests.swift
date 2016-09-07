@@ -44,15 +44,15 @@ class ELLogTests: XCTestCase {
         XCTAssert(testLogLevel.boolValue == true)
         
         logger.log(testLogLevel, message: testMessage)
-        XCTAssert(unitTestDestination.lastLogDetail.level == testLogLevel.rawValue)
-        XCTAssert(unitTestDestination.lastLogDetail.message == testMessage)
+        XCTAssert(unitTestDestination.lastMessage!.containsString(testLogLevel.description))
+        XCTAssert(unitTestDestination.lastMessage!.containsString(testMessage))
         
         logger.removeDestination(identifier)
         XCTAssertTrue(logger.destinationsForTesting().isEmpty)
     }
     
     func testInstance() {
-        let logger = Logger()
+		let logger = Logger(formatter: VerboseFormatter())
         runTestsOn(logger)
     }
 
