@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Format {
+public struct Format {
 	static let Date = "yyyy-MM-dd HH:mm:ss.SSS"
 }
 
