@@ -18,7 +18,7 @@ extension NSThread {
 
     static private let formatterCacheKey = "ELLog.Console.dateFormatter_ELLog"
 
-    class func dateFormatter_ELLog(format: String, locale: NSLocale = NSLocale.currentLocale()) -> NSDateFormatter {
+    public class func dateFormatter_ELLog(format: String, locale: NSLocale = NSLocale.currentLocale()) -> NSDateFormatter {
         let threadDictionary = NSThread.currentThread().threadDictionary
 
         var cache: Dictionary<String, NSDateFormatter>? = threadDictionary.objectForKey(formatterCacheKey) as? Dictionary<String, NSDateFormatter>
