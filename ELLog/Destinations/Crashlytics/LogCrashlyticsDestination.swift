@@ -40,12 +40,11 @@ The default behavior is:
 @objc(ELLogCrashlyticsDestination)
 public class LogCrashlyticsDestination: ELLog.LogDestinationBase {
 
-	public override init(level argLevel: ELLog.LogLevel, formatter: ELLog.LogFormatter = ELLog.VerboseFormatter()) {
-		super.init(level: argLevel, formatter: formatter)
+	public override init(level argLevel: ELLog.LogLevel) {
+		super.init(level: argLevel)
     }
 
-    public override func log(detail: ELLog.LogDetail) {
-		let message = formatter.format(detail)
+	public override func log(message: String) {
 		CLSLogv("%@", getVaList([message]))
     }
 }

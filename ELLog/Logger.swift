@@ -101,9 +101,9 @@ public class Logger: NSObject {
     private var _enabled = true
 
 	/**
-	The formatter used to convert log detail to a string. The default is SimpleFormatter.
+	The formatter used to convert log detail to a string. The default is LevelFormatters.
 	*/
-	var formatter: LogFormatter = SimpleFormatter()
+	var formatter: LogFormatter = LevelFormatter()
 
     
     public override init() {
