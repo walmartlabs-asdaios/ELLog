@@ -15,11 +15,11 @@ Defines a log destination that captures the last LogDetail logged.
 
  */
 @objc(ELLogUnitTestDestination)
-public class LogUnitTestDestination: LogDestinationBase {
+open class LogUnitTestDestination: LogDestinationBase {
     
-    public var lastMessage: String?
+    open var lastMessage: String?
 
-    public override func log(message: String) {
+    open override func log(_ message: String) {
         lastMessage = message
     }
     

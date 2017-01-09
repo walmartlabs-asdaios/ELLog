@@ -23,8 +23,8 @@ class ELLogTests: XCTestCase {
     }
     
     
-    func runTestsOn(logger: Logger) {
-        let number = NSNumber(integer: 1234)
+    func runTestsOn(_ logger: Logger) {
+        let number = NSNumber(value: Int(1234))
         
         logger.removeAllDestinations()
         
@@ -33,7 +33,7 @@ class ELLogTests: XCTestCase {
         // This destination captures the LogDetail sent to Logger
         let unitTestDestination = LogUnitTestDestination()
         let identifier = unitTestDestination.identifier
-        logger.addDestination(unitTestDestination)
+        _ = logger.addDestination(unitTestDestination)
         
         XCTAssert(logger.destinationsForTesting().count == 1)
         XCTAssert(logger.destination(identifier) === unitTestDestination)
@@ -44,8 +44,8 @@ class ELLogTests: XCTestCase {
         XCTAssert(testLogLevel.boolValue == true)
         
         logger.log(testLogLevel, message: testMessage)
-        XCTAssert(unitTestDestination.lastMessage!.containsString(testLogLevel.description))
-        XCTAssert(unitTestDestination.lastMessage!.containsString(testMessage))
+        XCTAssert(unitTestDestination.lastMessage!.contains(testLogLevel.description))
+        XCTAssert(unitTestDestination.lastMessage!.contains(testMessage))
         
         logger.removeDestination(identifier)
         XCTAssertTrue(logger.destinationsForTesting().isEmpty)

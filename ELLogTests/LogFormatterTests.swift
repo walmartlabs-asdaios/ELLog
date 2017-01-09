@@ -17,7 +17,7 @@ class LogFormatterTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
 
-		logDetailMock = LogDetail(date: NSDate(timeIntervalSince1970: 0), message: "I am log.", level: .Debug, function: "testFunction", filename: "TestFolder/TestFilename.swift", line: 42)
+		logDetailMock = LogDetail(date: Date(timeIntervalSince1970: 0), message: "I am log.", level: .Debug, function: "testFunction", filename: "TestFolder/TestFilename.swift", line: 42)
     }
 
     override func tearDown() {
@@ -43,14 +43,14 @@ class LogFormatterTests: XCTestCase {
 
 	func testTimestampFormatter() {
 		let formatter = TimestampFormatter()
-		formatter.dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
+		formatter.dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
 		let expectedLogString = "[DEBUG] [1970-01-01 00:00:00.000] : I am log."
 		XCTAssertEqual(formatter.format(logDetailMock), expectedLogString)
 	}
 
 	func testVerboseFormatter() {
 		let formatter = VerboseFormatter()
-		formatter.dateFormatter.timeZone = NSTimeZone(abbreviation: "GMT")
+		formatter.dateFormatter.timeZone = TimeZone(abbreviation: "GMT")
 		let expectedLogString = "[DEBUG] [1970-01-01 00:00:00.000] (testFunction, TestFilename.swift:42) : I am log."
 		XCTAssertEqual(formatter.format(logDetailMock), expectedLogString)
 	}

@@ -14,7 +14,7 @@ Convenicen function to post logs to the default logging mechanism.
 - parameter level: The log level.
 - parameter message: The message to display.
 */
-public func log(level: ELLog.LogLevel, _ message: String, function: String = #function, filename: String = #file, line: UInt = #line) {
+public func log(_ level: ELLog.LogLevel, _ message: String, function: String = #function, filename: String = #file, line: UInt = #line) {
     Logger.defaultInstance.log(level, message: message, function: function, filename: filename, line: line)
 }
 

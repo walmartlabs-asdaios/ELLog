@@ -13,18 +13,18 @@ public struct Format {
 }
 
 @objc public protocol LogFormatter {
-	var dateFormatter: NSDateFormatter { get }
-	func format(detail: LogDetail) -> String
+	var dateFormatter: DateFormatter { get }
+	func format(_ detail: LogDetail) -> String
 }
 
-public class ConfigurableFormatter: NSObject, LogFormatter {
-	public lazy var dateFormatter: NSDateFormatter = {
-		return NSThread.dateFormatter_ELLog(Format.Date)
-	}()
+open class ConfigurableFormatter: NSObject, LogFormatter {
+	open var dateFormatter: DateFormatter {
+		return Thread.dateFormatter_ELLog(Format.Date)
+	}
 
-	public var showLevel: Bool
-	public var showTimestamp: Bool
-	public var showCaller: Bool
+	open var showLevel: Bool
+	open var showTimestamp: Bool
+	open var showCaller: Bool
 
 	public required init(showLevel: Bool, showTimestamp: Bool, showCaller: Bool) {
 		self.showLevel = showLevel
@@ -32,7 +32,7 @@ public class ConfigurableFormatter: NSObject, LogFormatter {
 		self.showCaller = showCaller
 	}
 
-	public func format(detail: LogDetail) -> String {
+	open func format(_ detail: LogDetail) -> String {
 		var logString: String = ""
 
 		if showLevel == true {
@@ -40,7 +40,7 @@ public class ConfigurableFormatter: NSObject, LogFormatter {
 		}
 
 		if showTimestamp == true {
-			logString += "[\(dateFormatter.stringFromDate(detail.date))] "
+			logString += "[\(dateFormatter.string(from: detail.date as Date))] "
 		}
 
 		if showCaller == true {
@@ -54,25 +54,25 @@ public class ConfigurableFormatter: NSObject, LogFormatter {
 	}
 }
 
-public class SimpleFormatter: ConfigurableFormatter {
+open class SimpleFormatter: ConfigurableFormatter {
 	public convenience init() {
 		self.init(showLevel: false, showTimestamp: false, showCaller: false)
 	}
 }
 
-public class LevelFormatter: ConfigurableFormatter {
+open class LevelFormatter: ConfigurableFormatter {
 	public convenience init() {
 		self.init(showLevel: true, showTimestamp: false, showCaller: false)
 	}
 }
 
-public class TimestampFormatter: ConfigurableFormatter {
+open class TimestampFormatter: ConfigurableFormatter {
 	public convenience init() {
 		self.init(showLevel: true, showTimestamp: true, showCaller: false)
 	}
 }
 
-public class VerboseFormatter: ConfigurableFormatter {
+open class VerboseFormatter: ConfigurableFormatter {
 	public convenience init() {
 		self.init(showLevel: true, showTimestamp: true, showCaller: true)
 	}

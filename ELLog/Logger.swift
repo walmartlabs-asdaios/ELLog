@@ -11,7 +11,7 @@ import Foundation
 /**
 Logging Level option flags.
 */
-public struct LogLevel: OptionSetType, BooleanType, CustomStringConvertible {
+public struct LogLevel: OptionSet, CustomStringConvertible {
     /// Logging disabled.
     public let rawValue: UInt
     
@@ -60,7 +60,7 @@ public struct LogLevel: OptionSetType, BooleanType, CustomStringConvertible {
             options.append("VERBOSE")
         }
 
-        return options.joinWithSeparator(", ")
+        return options.joined(separator: ", ")
     }
 
     public init(rawValue: UInt) { self.rawValue = rawValue }
@@ -75,17 +75,17 @@ Logger class.
 Logs messages to the added destinations based on LogLevel flags.
 */
 @objc(ELLogger)
-public class Logger: NSObject {
+open class Logger: NSObject {
 
     /**
     The default logger instance.  This is typically a LogConsoleDestination with a log level of .Debug.
     */
-    public static let defaultInstance = loggerDefault()
+    open static let defaultInstance = loggerDefault()
     
     /**
     Allows this logger to be enabled/disabled.
     */
-    public var enabled: Bool {
+    open var enabled: Bool {
         get {
             objc_sync_enter(self)
             let value = _enabled
@@ -98,7 +98,7 @@ public class Logger: NSObject {
             objc_sync_exit(self)
         }
     }
-    private var _enabled = true
+    fileprivate var _enabled = true
 
 	/**
 	The formatter used to convert log detail to a string. The default is LevelFormatters.
@@ -109,7 +109,7 @@ public class Logger: NSObject {
     public override init() {
         super.init()
         let console = LogConsoleDestination(level: [.Debug, .Error])
-        addDestination(console)
+        _ = addDestination(console)
     }
 
 	public convenience init(formatter: LogFormatter) {
@@ -120,8 +120,8 @@ public class Logger: NSObject {
     /**
     Dispatches the provided log information to the logging destination.
     */
-    public func log(level: LogLevel, message: String, function: String = #function, filename: String = #file, line: UInt = #line) {
-        let detail = LogDetail(date: NSDate(), message: message, level: level, function: function, filename: filename, line: line)
+    open func log(_ level: LogLevel, message: String, function: String = #function, filename: String = #file, line: UInt = #line) {
+        let detail = LogDetail(date: Date(), message: message, level: level, function: function, filename: filename, line: line)
         log(detail)
     }
 
@@ -133,7 +133,7 @@ public class Logger: NSObject {
     - parameter destination: The destination to add.
     - returns: the identifier of the destination.  Useful for later lookup.
     */
-    public func addDestination(destination: LogDestination) -> String {
+    open func addDestination(_ destination: LogDestination) -> String {
         destinations[destination.identifier] = destination
         return destination.identifier
     }
@@ -141,33 +141,33 @@ public class Logger: NSObject {
     /**
     Removes an existing destination by identifier.
     */
-    public func removeDestination(identifier: String) {
-        destinations.removeValueForKey(identifier)
+    open func removeDestination(_ identifier: String) {
+        destinations.removeValue(forKey: identifier)
     }
 
     /**
     Removes all destinations from this Logger instance.
     */
-    public func removeAllDestinations() {
-        destinations.removeAll(keepCapacity: false)
+    open func removeAllDestinations() {
+        destinations.removeAll(keepingCapacity: false)
     }
 
     /**
     Lookup an existing destination by its identifier.
     */
-    public func destination(identifier: String) -> LogDestination? {
+    open func destination(_ identifier: String) -> LogDestination? {
         return destinations[identifier]
     }
     
     /**
     Don't call this.  This is purely for interacting with the objective-c interface to this class.
     */
-    public func _objcLog(level: UInt, function: String, filename: String, line: UInt, message: String) {
-		let detail = LogDetail(date: NSDate(), message: message, level: LogLevel(rawValue: level), function: function, filename: filename, line: line)
+    open func _objcLog(_ level: UInt, function: String, filename: String, line: UInt, message: String) {
+		let detail = LogDetail(date: Date(), message: message, level: LogLevel(rawValue: level), function: function, filename: filename, line: line)
 		log(detail)
     }
 
-    private func log(detail: LogDetail) {
+    fileprivate func log(_ detail: LogDetail) {
         // if this logger isn't enabled, gtfo.
         if !enabled {
             return
@@ -194,7 +194,7 @@ public class Logger: NSObject {
         return destinations
     }
     
-    private var destinations = [String: LogDestination]()
+    fileprivate var destinations = [String: LogDestination]()
 }
 
 

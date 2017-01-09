@@ -19,8 +19,8 @@ The default behavior is:
     showTimestamp = false
 */
 @objc(ELLogConsoleDestination)
-public class LogConsoleDestination: LogDestinationBase {
-    public override func log(message: String) {
+open class LogConsoleDestination: LogDestinationBase {
+    open override func log(_ message: String) {
         // You must pass NSLog a format string and then pass the Swift string as a vaArg
         // or the code will crash when it tries to format %f in the Swift string
         NSLog("%@", message)

@@ -17,7 +17,7 @@ public protocol LogDestination: class {
 
     - parameter detail: Detailed information about the log statement.
     */
-    func log(message: String)
+    func log(_ message: String)
     
     /**
     A unique identifier representing this destination.
@@ -37,7 +37,7 @@ Provides a default identifier (a GUID), a default level of .Debug, and a date fo
 use with output timestamps.
 */
 @objc(ELLogDestinationBase)
-public class LogDestinationBase: NSObject, LogDestination {
+open class LogDestinationBase: NSObject, LogDestination {
 
 	public init(level: LogLevel) {
         self.level = level.rawValue
@@ -48,11 +48,11 @@ public class LogDestinationBase: NSObject, LogDestination {
 	}
 
     // MARK: LogDestination protocol
-    public var identifier: String = NSUUID().UUIDString
-    public var level: UInt
+    open var identifier: String = UUID().uuidString
+    open var level: UInt
 
     /// Subclasses must override
-    public func log(message: String) {
+    open func log(_ message: String) {
         assertionFailure("This method must be overriden by the subclass.")
     }
 
